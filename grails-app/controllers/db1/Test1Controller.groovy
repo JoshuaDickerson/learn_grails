@@ -15,11 +15,15 @@ class Test1Controller {
 		render bp
 	}
 
-    def newAuthor() { 
-    	def a = new Author(name: "Stephen King")
-             .addToFiction(title: "IT")
-             .addToFiction(title: "The Thinner")
-             .save(1)
+    def newAuthor() {
+    	try{
+	    	def a = new Author(name: "Stephen King")
+	             .addToFiction(title: "IT")
+	             .addToFiction(title: "The Thinner")
+	             .save(flush: true, failOnError: true)
+		}catch(Exception e){
+			render e
+		}
 
         render "working"
     }
